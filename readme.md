@@ -1,4 +1,4 @@
-# Open Data Structures (Korean Translatation)
+# Open Data Structures (Korean Translation)
 
 ### This project is still in progress.
 
