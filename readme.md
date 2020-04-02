@@ -3,8 +3,8 @@
 ### This project is still in progress.
 
 # Todo
--[ ] Router for each chapter pages
--[ ] Translation work
+- [ ] Router for each chapter pages
+- [ ] Translation work
 
 # Build (*Development Stage)
 1. First, clone this repository.
