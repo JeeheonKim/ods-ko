@@ -1,0 +1,22 @@
+html(lang="UTF-8")
+    head
+        include includes/card
+        link(rel="stylesheet", href="css/style.scss")
+        title 오픈 데이터 스트럭쳐
+    body
+        include includes/header
+        main
+            .cardGrid
+                //- date, topright,bottomleft, bottomright, frontimage, fronttitle, backtext, sideleft, sideright
+                a(style='background-color:#E4C974' href='#')
+                    +card-backtext('31.March 2020', 'Updated', '희생양트리', 'ScapegoatTree', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Scapegoat_%26_blacksheep.jpg/1200px-Scapegoat_%26_blacksheep.jpg','희생양 트리(Scapegoat Tree)', '불균형한 트리 모양을 한 노드의 잘못으로 돌리자!','Beta','Beta')
+                a(style='background-color:#4E7E42' href='')
+                    +card-backtext('31.March 2020', 'Updated', '해시테이블', 'HashTable', 'https://live.staticflickr.com/4102/4786683602_2c61b44226_z.jpg','해시테이블(Hash Table)', '해시테이블에서는 테이블을 순회하지 않아도 바로 데이터가 저장된 인덱스를 찾을 수 있다. 데이터가 바로 인덱스로 치환된다. ','Beta','Beta')
+                +card-backtext()
+                +card-backtext()
+                +card-backtext()
+                +card-backtext()
+                +card-backtext()
+                +card-backtext()
+            include includes/footer
+    script(src="index.js")

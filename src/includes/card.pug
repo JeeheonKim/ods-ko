@@ -1,0 +1,37 @@
+mixin card-backtext(date='2020 March 1', topright='JeeheonKim', bottomleft='placeholder', bottomright='placeholder', frontimage='https://i.picsum.photos/id/870/200/300.jpg?blur=2&grayscale', fronttitle='This is a placeholder ready to be replaced', backtext='Ipsum', sideleft='', sideright='')
+    .card
+        .card-layer.meta-layer
+            .meta-tag.tag-start
+                span.date.left-tag=date
+                span.author.right-tag=topright
+            .meta-tag.tag-end
+                span.left-tag=bottomleft
+                span.right-tag=bottomright
+        .card-layer.front-layer
+            .image-wrapper
+                img(src=frontimage sizes='(max-width: 499px) 60vw, (max-width: 799px) 30vw, (max-width: 999px) 20vw, (max-width: 1599px) 15vw, (min-width: 1600px) 10vw')
+            h2=fronttitle
+        .card-layer.back-layer
+            p.back-paragraph=backtext
+        .card-layer.sponsor-layer
+            span.sponsor-left=sideleft
+            span.sponsor-right=sideright
+
+mixin card-backimage(date='2020 March 1', topright='JeeheonKim', bottomleft='placeholder', bottomright='placeholder', frontimage='', fronttitle='This is a placeholder ready to be replaced', backimage='', sideleft='', sideright='')
+    .card
+        .card-layer.meta-layer
+            .meta-tag.tag-start
+                span.date.left-tag=date
+                span.author.right-tag=topright
+            .meta-tag.tag-end
+                span.left-tag=bottomleft
+                span.right-tag=bottomright
+        .card-layer.front-layer
+            .image-wrapper
+                img(src=frontimage sizes='(max-width: 499px) 60vw, (max-width: 799px) 30vw, (max-width: 999px) 20vw, (max-width: 1599px) 15vw, (min-width: 1600px) 10vw')
+            h2=fronttitle
+        .card-layer.back-layer
+            img(src=backimage class='back-image')
+        .card-layer.sponsor-layer
+            span.sponsor-left=sideleft
+            span.sponsor-right=sideright

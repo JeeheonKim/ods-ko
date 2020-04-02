@@ -1,0 +1,145 @@
+html(lang="UTF-8")
+    head
+        include includes/card
+        link(rel="stylesheet", href="css/page-style.scss")
+        title 오픈 데이터 스트럭쳐
+    body
+        include includes/header
+        main
+            .article-cover-container
+                .article-cover(style="background-image: url('https://live.staticflickr.com/4102/4786683602_2c61b44226_z.jpg');")
+            .wrapper
+            h1
+                | 5. Hash Tables
+            .image-container
+                img(src='https://media.giphy.com/media/10GUbOX16lS15C/giphy.gif')
+            p
+                | Hash Table 은 적은 범위부터 큰 범위의 수들을 저장하는 데 효과적이다.
+                | 이 챕터의 첫 부분에서는 hash table의 가장 대표적인 사용법인 hash with chaining 그리고 linear probing 에 대해서 배운다
+            p
+                | Hash table에 수가 아닌 것을 저장할 수도 있다. 이 경우에는, 각 data마다 hashcode 수가 연계되어진다.
+                | 이 챕터의 두번째 부분에서는 이러한 hashcode 를 어떻게 생성하는 지 알아본다.
+            p
+                | 이 챕터에 쓰인 방법들은 정해진 범위 안의 무작위로 선택된 수를 사용한다. 코드 샘플에서는 이런 무작위 수를 상수로 놓고 사용한다.
+                | 사용하는 상수는 atmospheric noise로 생성된 무작위 수이다.
+            span
+                h2 5.1 ChainedHashTable: Hashing with Chaining
+                p
+                b ChainedHashTable
+                |  는 해싱과 연쇄를 이용해 데이터를 배열에 저장하는 자료구조이다.
+                |         정수 n은 배열 안에 있는 원소 수를 기록한다
+                pre.code.
+                \n        List      
+                .image-container
+                img(src='https://opendatastructures.org/ods-java/img1931.png')
+                p  Figure5.1: n=14, t.length-1 인 연쇄해시표. hash(x)=6이므로 x는 t[6]에 저장되어 있다. 
+                p
+                | 데이터의 해시 값 
+                b hash(x)
+                |  는 
+                b 0 ≤ hash(x)  ≤ t.length
+                |  를 만족한다
+                |             해시 값이 i 인 아이템은 t[i]에 저장한다. 배열이 너무 커지는 것을 방지하려고
+                .one-liner n ≤ t.length
+                |             조건을 만족시키면 배열의 원소 하나당 평균 길이 b>n/t.lenght ≤ 1 이 된다
+                p
+                p
+                | 원소 x를 해시테이블에 추가할 때, 배열 t의 길이가 증가해야 하는지 검사해야한다. 그 후에 우리는 x의 해시값인 i 즉 hash(x)를 계산한 후 x를 t[i]에 더해주면 된다.
+                | 여기서 주의할 점은 다른 여러 원소가 배열 t의 같은 공간에 저장될 수 있다는 점이다.
+                pre.code.
+                \n            bool add(T x) {
+                    if (find(x)!= null) return false;
+                    if (n+1 > t.length) resize();
+                    t[hash(x)].add(x);
+                    n++;
+                    return true;
+            }
+                p
+                | 표의 길이를 증가시키는 것은 t의 길이를 2배 증가시키는 연산으로 행해진다. 이 전략은 ArrayStack 에서 사용되었던 전략과 같다 (여기).
+                | 표가 증가하는 비용은 연속되는 추가 연산의 평균 비용으로 상수 시간이 든다. (Lemma 2.1)
+                p
+                | t를 증가시키는 것 외에도 t[hash(x)]도 배열이므로 x를 t[hash(x)]배열에 추가시키는 비용도 발생한다.
+                | 이 연산은 상수 비용이 든다.
+                p
+                | 원소를 삭제하기 위해서 우리는 t[hash(x)]에서 x를 찾아야 한다.
+                pre.code.
+                \n            T remove(T x){
+                    int j=hash(x);
+                    for (int i=0; i<t[j].size(); ++i) {
+                    T y = t[j].get(i);
+                    if (x==y){
+                        t[j].remove(i);
+                        n--;
+                        return y;
+                    }
+                    }
+                    return null;
+            }
+                p
+                | 이 연산은 O(t[hash(x)].length) 시간이 걸린다.
+                p
+                | 해시 테이블에서 x를 찾는 것도 비슷하다. t[hash(x)]를 순회해야 한다.
+                pre.code.
+                \n            T find(T x) {
+                    int j= hash(x);
+                    for (int i=0; i<t[j].size(); i++)
+                    if (x==t[j].get(i))
+                    return t[j].get(i);
+                    return null;
+            }
+                p 이 연산 또한 O(t[hash(x)].length) 시간이 걸린다
+                p
+                | 해시 테이블의 성능은 해시함수에 의해 결정된다. 좋은 해시함수는 원소들은 t.length개의 공간에 균등하게 분포시겨서 t[hash(x)]의 평균 크기가 
+                b O(n/t.length)=O(1)
+                |  가 된다.
+                |             반대로 나쁜 해시함수는 모든 원소의 해시값이 똑같아서 t[hash(x)]에 모든 원소가 주거하게 만든다. 이 경우 t[hash(x)]의 크기와 t의 크기가 같게 된다. 이는 해시테이블의 기능을 무시하고 단순한 배열 하나로 정보를 저장하는 것과 같다.
+                h2 5.1.1 곱셈 해싱 Multiplicative Hashing
+                p
+                | 곱셈 해싱은 modular arthimetics과 integer division 을 이용해 해시값을 효과적으로 생성한다.
+                p
+                | 곱셈 해싱에서는 $2^d$ 크기의 테이블을 사용하고 $d$는 정수이고 dimension이라고 부른다
+                | 곱셈해싱에서 $x \in {0, ..., 2^w -1} $의 해싱 함수는
+                | $$hash(x) = ((z \cdot x)mod 2^w) div 2^{w-d}$$ 이다.
+                p
+                | 여기서 $z$는 ${1,...,2^w-1}$에서 무작위로 뽑은 정수이다. 이 해시함수는
+                pre.code.
+                \n                int hash(T x){
+                    return ((unsigned)(z * hashCode(x))) >> (w-d);
+                    }
+                .image-container
+                img(src='https://opendatastructures.org/ods-cpp/img2476.png')
+                p Figure5.2: w=32, d=8인 곱셈 해시 함수의 연산
+                p
+                | 아래 lemma는 곱셈해싱이 충돌을 피하는 좋은 해싱함수임을 보인다. 증명은 나중으로 미뤄두자
+                .not-done ....추가바람
+                h3 5.1.2 요약
+                p
+                | 다음 theorem 은 연쇄해시표의 성능에 대해서 요약한다
+                p
+                b Theorem 5.1
+                |  연쇄해시표는 USet 인터페이스는 상속한다. grow() 함수를 제외하면 add(x), remove(x), find(x) 연산을 O(1) 안에 할 수 있다.
+                span
+                h2  5.2 선형해시테이블의 선형탐사 Linear Probing
+                .image-container
+                img(src='https://media2.giphy.com/media/ZvHvqytKbXepsP9Q1P/giphy.gif')
+                p Mars Rover (https://media2.giphy.com/media/ZvHvqytKbXepsP9Q1P/giphy.gif)
+                p
+                | 우리가 봤던 연쇄해시테이블은 이중 배열을 사용해 해싱값이 i에 해당하는 모든 원소들을 인덱스 i에 저장한다
+                | Open addressing은 위 방법의 대안책으로 배열 $t$에 원소를 직접 저장하고 t[i]의 공간에 원소를 최대 하나 저장한다.
+                | 이 장에서는 open addressing을 이용하는 선형해시테이블에 대해 배운다. 어떤 책에서는 이 자료구조를 선형탐사를 이용한 open addressing이라고 설명한다.
+                p
+                | 선형해시테이블은 이상적으로 테이블의 인덱스 $i=hash(x)$ 자리에 $x$를 저장하고 싶어한다.
+                | 하지만 다른 원소가 그 자리에 저장된 경우 어쩔 수 없이 $t[(i+1)mod(t.length)]$
+                | 자리에 저장하려는 시도를 하고 그것도 안 된다면 $t[(i+2)mod(t.length)]$에 시도를 하고 그것도 실패할 경우 $x$ 의 자리를 찾을 때까지 순회한다.
+                p
+                | 테이블 $t$에 저장된 원소는 세 가지 종류로 구별한다.
+                ol
+                li 데이터 값: 우리가 저장하는 값
+                li null 값: 데이터가 한 번도 저장된 적이 없는 공간
+                li del 값: 데이터가 저장되었다가 지워진 공간
+                |                 테이블의 원소 개수를 기록하는 $n$ 외에도 $q$로 타입1과 타입3 원소의 개수를 기록한다.
+                |                 $q$는 $n$ 과 $del$의 수를 더한 개수이다. 우리는 $q$값 보다 $t$의 크기가 크게 만들어서 $t$에 $null$값이 많이 저장되도록 한다. 
+                p
+
+
+    script(src="index.js")

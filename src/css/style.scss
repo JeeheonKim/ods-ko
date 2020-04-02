@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css?family=Space+Mono&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 1.8em;
+  padding-left: 0.7em;
+  font-family: 'Space Mono', monospace;
+  font-size: 21px;
+}
+
+.svg-container {
+  display: flex;
+  align-content: center;
+}
+
+.icon-list {
+  padding: 0 1.2rem 0 0;
+}
+
+.icon {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.icon-text {
+  line-height: 1.4rem;
+  font-size: 1.4rem;
+}
+
+svg {
+  width: 96px;
+  height: 100%;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+  grid-auto-rows: 500px;
+  a {
+      &:hover {
+          text-decoration: none;
+      }
+  }
+}
+
+@media screen and (max-width: 785px) {
+  .cardGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  display: block;
+  height: 100%;
+  position: relative;
+}
+
+.card-layer {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.meta-layer {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.front-layer {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  width: fit-content;
+  align-content: flex-start;
+}
+
+.back-layer {
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  place-content: center;
+}
+
+.sponsor-layer {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.card:hover {
+  .back-layer {
+    visibility: visible;
+  }
+
+  .front-layer {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+.meta-tag {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 16px;
+
+  /* font */
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68em;
+}
+
+.image-wrapper {
+  display: flex;
+  height: 13em;
+  max-width: 16em;
+  margin: 30% 0 10%;
+  overflow: hidden;
+  justify-content: center;
+}
+
+img {
+  height: 100%;
+}
+
+h2 {
+  text-align: center;
+  width: calc(100% / 12 * 8);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+nav {
+  display: grid;
+  align-content: center;
+}
+
+.category {
+  justify-content: center;
+}
+
+.category-small {
+  visibility: hidden;
+  width: 0;
+}
+
+@media only screen and (max-width: 1050px) {
+  .category-small {
+    visibility: visible;
+    display: flex;
+    width: 100%;
+  }
+
+  .category-big {
+    display: none;
+  }
+}
+
+ul {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  list-style-type: none;
+  align-content: center;
+  align-items: center;
+  line-height: inherit;
+
+  > li {
+    display: flex;
+    align-content: center;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-right: 0.6em;
+    }
+  }
+}
+
+.circle {
+  display: inline-block;
+  margin-right: 5px;
+  height: 15px;
+  width: 15px;
+  background-color: #c9a996;
+  border-radius: 50%;
+}
+
+.loadMore {
+  display: flex;
+  height: 148px;
+  place-content: center;
+  place-items: center;
+}
+
+a {
+    text-decoration: none;
+    text-decoration-color: black;
+    color: black;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.back-paragraph {
+  font-size: 1.1em;
+  font-style: italic;
+  line-height: 1.5;
+  font-weight: 600;
+  width: calc(100% / 12 * 8);
+  text-align: center;
+  height: fit-content;
+}
+
+.back-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  overflow: hidden;
+  margin: 0;
+
+  img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+}
+
+footer {
+  display: flex;
+  height: 78px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  width: 33.3%;
+  margin: 16px;
+
+  &:last-child {
+    text-align: right;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.loadMore a {
+  text-decoration: underline;
+}
+
+.footer-middle {
+  text-align: center;
+}
+
+.sponsor-left {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.sponsor-right {
+  writing-mode: vertical-rl;
+  text-orientation: sideways-right;
+}
